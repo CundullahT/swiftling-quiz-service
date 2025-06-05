@@ -4,16 +4,22 @@ public class SwaggerExamples {
 
     private SwaggerExamples() {}
 
-    public static final String PHRASE_CREATE_REQUEST_EXAMPLE = "{\n" +
-            "  \"originalPhrase\": \"Bonjour\",\n" +
-            "  \"originalLanguage\": \"FRENCH\",\n" +
-            "  \"meaning\": \"Hello\",\n" +
-            "  \"meaningLanguage\": \"ENGLISH\",\n" +
-            "  \"phraseTags\": [\n" +
-            "    \"greeting\",\n" +
-            "    \"basic\"\n" +
-            "  ],\n" +
-            "  \"notes\": \"Common polite greeting in French.\"\n" +
+    public static final String QUIZ_RESULT_SAVE_REQUEST_EXAMPLE = "{\n" +
+            "  \"quizType\": \"LEARNED_ONLY\",\n" +
+            "  \"language\": \"CZECH\",\n" +
+            "  \"correctAnswerAmount\": 12,\n" +
+            "  \"wrongAnswerAmount\": 3,\n" +
+            "  \"timedOutAnswerAmount\": 1,\n" +
+            "  \"bestTimeInSeconds\": 4,\n" +
+            "  \"worstTimeInSeconds\": 15,\n" +
+            "  \"learnedPhrases\": {\n" +
+            "    \"550e8400-e29b-41d4-a716-446655440000\": 10,\n" +
+            "    \"550e8400-e29b-41d4-a716-446655440001\": 11\n" +
+            "  },\n" +
+            "  \"inProgressPhrases\": {\n" +
+            "    \"550e8400-e29b-41d4-a716-446655440002\": 5,\n" +
+            "    \"550e8400-e29b-41d4-a716-446655440003\": 6\n" +
+            "  }\n" +
             "}";
 
     public static final String PHRASE_UPDATE_REQUEST_EXAMPLE = "{\n" +
@@ -28,21 +34,20 @@ public class SwaggerExamples {
             "  \"notes\": \"Informal French greeting.\"\n" +
             "}";
 
-    public static final String PHRASE_CREATE_RESPONSE_EXAMPLE = "{\n" +
+    public static final String QUIZ_RESULT_SAVE_RESPONSE_EXAMPLE = "{\n" +
             "  \"success\": true,\n" +
             "  \"statusCode\": \"CREATED\",\n" +
-            "  \"message\": \"The phrase has been created successfully.\",\n" +
+            "  \"message\": \"The quiz result has been saved successfully.\",\n" +
             "  \"data\": {\n" +
-            "    \"externalPhraseId\": \"550e8400-e29b-41d4-a716-446655440000\",\n" +
-            "    \"originalPhrase\": \"Bonjour\",\n" +
-            "    \"originalLanguage\": \"FRENCH\",\n" +
-            "    \"meaning\": \"Hello\",\n" +
-            "    \"meaningLanguage\": \"ENGLISH\",\n" +
-            "    \"phraseTags\": [\n" +
-            "      \"greeting\",\n" +
-            "      \"basic\"\n" +
-            "    ],\n" +
-            "    \"notes\": \"Common polite greeting in French.\"\n" +
+            "    \"externalQuizResultId\": \"550e8400-e29b-41d4-a716-446655440099\",\n" +
+            "    \"date\": \"2025-06-05\",\n" +
+            "    \"quizType\": \"TRANSLATION\",\n" +
+            "    \"language\": \"FRENCH\",\n" +
+            "    \"correctAnswerAmount\": 12,\n" +
+            "    \"wrongAnswerAmount\": 3,\n" +
+            "    \"timedOutAnswerAmount\": 1,\n" +
+            "    \"bestTimeInSeconds\": 4,\n" +
+            "    \"worstTimeInSeconds\": 15\n" +
             "  }\n" +
             "}";
 
@@ -397,6 +402,13 @@ public class SwaggerExamples {
     public static final String USER_EXTERNAL_ID_NOT_RETRIEVED_RESPONSE_EXAMPLE = "{\n" +
             "  \"success\": false,\n" +
             "  \"message\": \"The external ID of the user account could not be retrieved.\",\n" +
+            "  \"httpStatus\": \"SERVICE_UNAVAILABLE\",\n" +
+            "  \"localDateTime\": \"2024-01-01T00:00:00.0000000\"\n" +
+            "}";
+
+    public static final String PHRASE_STATUSES_NOT_UPDATED_RESPONSE_EXAMPLE = "{\n" +
+            "  \"success\": false,\n" +
+            "  \"message\": \"The statuses of the phrases in the quiz result could not be updated.\",\n" +
             "  \"httpStatus\": \"SERVICE_UNAVAILABLE\",\n" +
             "  \"localDateTime\": \"2024-01-01T00:00:00.0000000\"\n" +
             "}";
