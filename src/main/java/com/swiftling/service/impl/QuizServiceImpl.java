@@ -3,7 +3,6 @@ package com.swiftling.service.impl;
 import com.swiftling.client.PhraseClient;
 import com.swiftling.client.UserAccountClient;
 import com.swiftling.dto.PhraseResponseDTO;
-import com.swiftling.dto.PhraseStatusUpdateDTO;
 import com.swiftling.dto.QuizResultDTO;
 import com.swiftling.dto.UserAccountResponseDTO;
 import com.swiftling.entity.QuizResult;
@@ -85,11 +84,7 @@ public class QuizServiceImpl implements QuizService {
 
         try {
 
-            PhraseStatusUpdateDTO phraseStatusUpdateDTO = new PhraseStatusUpdateDTO();
-            phraseStatusUpdateDTO.setLearnedPhrases(quizResultDTO.getLearnedPhrases());
-            phraseStatusUpdateDTO.setInProgressPhrases(quizResultDTO.getInProgressPhrases());
-
-            ResponseEntity<PhraseResponseDTO> response = phraseClient.changePhraseStatuses(phraseStatusUpdateDTO);
+            ResponseEntity<PhraseResponseDTO> response = phraseClient.changePhraseStatuses(quizResultDTO.getResultForEachPhrase());
 
             if (!Objects.requireNonNull(response.getBody()).isSuccess()) {
                 throw new PhraseStatusesCouldNotBeUpdatedException("The statuses of the phrases in the quiz result could not be updated.");

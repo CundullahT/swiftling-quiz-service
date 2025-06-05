@@ -46,10 +46,7 @@ public class QuizResultDTO {
     @NotNull(message = "Worst Time is a required field.")
     private Integer worstTimeInSeconds;
 
-    @NotNull(message = "Learned Phrases is a required field.")
-    private Map<UUID, Integer> learnedPhrases;
-
-    @NotNull(message = "In Progress Phrases is a required field.")
-    private Map<UUID, Integer> inProgressPhrases;
+    @NotNull(message = "Result for Each Phrase is a required field.")
+    private Map<UUID, PhraseResultDTO> resultForEachPhrase;
 
 }
