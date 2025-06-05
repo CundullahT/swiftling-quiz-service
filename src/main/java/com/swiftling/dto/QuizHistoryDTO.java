@@ -20,7 +20,7 @@ import java.util.UUID;
 public class QuizHistoryDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private UUID externalQuizResultId;
+    private UUID externalQuizId;
 
     @NotNull(message = "Date is a required field.")
     private LocalDate date;

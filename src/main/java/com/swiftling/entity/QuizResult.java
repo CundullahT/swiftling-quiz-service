@@ -20,7 +20,7 @@ import java.util.UUID;
 public class QuizResult extends BaseEntity {
 
     @Column(unique = true, nullable = false)
-    private UUID externalQuizResultId;
+    private UUID externalQuizId;
 
     @Column(nullable = false)
     private LocalDate date;

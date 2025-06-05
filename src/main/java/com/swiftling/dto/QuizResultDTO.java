@@ -21,7 +21,7 @@ import java.util.UUID;
 public class QuizResultDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private UUID externalQuizResultId;
+    private UUID externalQuizId;
 
     private LocalDate date;
 
