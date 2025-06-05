@@ -2,14 +2,11 @@ package com.swiftling.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.swiftling.enums.Language;
-import com.swiftling.enums.QuizType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.UUID;
 
 @Getter

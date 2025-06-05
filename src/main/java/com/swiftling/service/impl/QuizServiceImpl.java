@@ -3,6 +3,7 @@ package com.swiftling.service.impl;
 import com.swiftling.client.PhraseClient;
 import com.swiftling.client.UserAccountClient;
 import com.swiftling.dto.PhraseResponseDTO;
+import com.swiftling.dto.QuizHistoryDTO;
 import com.swiftling.dto.QuizResultDTO;
 import com.swiftling.dto.UserAccountResponseDTO;
 import com.swiftling.entity.QuizResult;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -54,6 +56,13 @@ public class QuizServiceImpl implements QuizService {
 
         return mapperUtil.convert(savedQuizResult, new QuizResultDTO());
 
+    }
+
+    @Override
+    public List<QuizHistoryDTO> getQuizHistory() {
+        return quizRepository.findAllByOwnerUserAccountId(getOwnerUserAccountId()).stream()
+                .map(quizResult -> mapperUtil.convert(quizResult, new QuizHistoryDTO()))
+                .toList();
     }
 
     private UUID getOwnerUserAccountId() {

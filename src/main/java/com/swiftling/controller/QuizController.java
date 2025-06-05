@@ -1,5 +1,6 @@
 package com.swiftling.controller;
 
+import com.swiftling.dto.QuizHistoryDTO;
 import com.swiftling.dto.QuizResultDTO;
 import com.swiftling.dto.wrapper.ExceptionWrapper;
 import com.swiftling.dto.wrapper.ResponseWrapper;
@@ -52,7 +53,7 @@ public class QuizController {
                             examples = @ExampleObject(value = SwaggerExamples.USER_EXTERNAL_ID_NOT_RETRIEVED_RESPONSE_EXAMPLE))),
             @ApiResponse(responseCode = "503", description = "The statuses of the phrases in the quiz result could not be updated.",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionWrapper.class),
-                            examples = @ExampleObject(value = SwaggerExamples.USER_EXTERNAL_ID_NOT_RETRIEVED_RESPONSE_EXAMPLE)))})
+                            examples = @ExampleObject(value = SwaggerExamples.PHRASE_STATUSES_NOT_UPDATED_RESPONSE_EXAMPLE)))})
     public ResponseEntity<ResponseWrapper> save(@Valid @RequestBody QuizResultDTO quizResultDTO) {
 
         QuizResultDTO savedQuizResult = quizService.save(quizResultDTO);
@@ -66,31 +67,30 @@ public class QuizController {
 
     }
 
-//    @GetMapping("/phrases")
-//    @Operation(summary = "Get all the phrases created by the currently logged in user, with/without status and language filters.")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "The phrases have been retrieved successfully.",
-//                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseWrapper.class),
-//                            examples = @ExampleObject(value = SwaggerExamples.PHRASE_GET_ALL_RESPONSE_EXAMPLE))),
-//            @ApiResponse(responseCode = "403", description = "Access is denied",
-//                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionWrapper.class),
-//                            examples = @ExampleObject(value = SwaggerExamples.ACCESS_DENIED_FORBIDDEN_RESPONSE_EXAMPLE))),
-//            @ApiResponse(responseCode = "503", description = "The external ID of the user account could not be retrieved.",
-//                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionWrapper.class),
-//                            examples = @ExampleObject(value = SwaggerExamples.USER_EXTERNAL_ID_NOT_RETRIEVED_RESPONSE_EXAMPLE)))})
-//    public ResponseEntity<ResponseWrapper> getPhrases(@RequestParam(value = "status", required = false) String status,
-//                                                      @RequestParam(value = "lang", required = false) String language) {
-//
-//        List<PhraseDTO> phrases = phraseService.getPhrases(status, language);
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(ResponseWrapper.builder()
-//                .statusCode(HttpStatus.OK)
-//                .success(true)
-//                .message("The phrases have been retrieved successfully.")
-//                .data(phrases)
-//                .build());
-//
-//    }
+    @GetMapping("/history")
+    @Operation(summary = "Get the quiz history for the logged in user.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The quiz history has been retrieved successfully.",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseWrapper.class),
+                            examples = @ExampleObject(value = SwaggerExamples.QUIZ_HISTORY_LIST_RESPONSE_EXAMPLE))),
+            @ApiResponse(responseCode = "403", description = "Access is denied",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionWrapper.class),
+                            examples = @ExampleObject(value = SwaggerExamples.ACCESS_DENIED_FORBIDDEN_RESPONSE_EXAMPLE))),
+            @ApiResponse(responseCode = "503", description = "The external ID of the user account could not be retrieved.",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionWrapper.class),
+                            examples = @ExampleObject(value = SwaggerExamples.USER_EXTERNAL_ID_NOT_RETRIEVED_RESPONSE_EXAMPLE)))})
+    public ResponseEntity<ResponseWrapper> getQuizHistory() {
+
+        List<QuizHistoryDTO> quizHistory = quizService.getQuizHistory();
+
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseWrapper.builder()
+                .statusCode(HttpStatus.OK)
+                .success(true)
+                .message("The quiz history has been retrieved successfully.")
+                .data(quizHistory)
+                .build());
+
+    }
 //
 //    @GetMapping("/last-ten-phrases")
 //    @Operation(summary = "Get the last 10 phrases created by the currently logged in user.")
