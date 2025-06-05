@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.swiftling.enums.Language;
 import com.swiftling.enums.QuizType;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -22,14 +23,13 @@ public class QuizHistoryDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID externalQuizId;
 
-    @NotNull(message = "Date is a required field.")
     private LocalDate date;
 
-    @NotNull(message = "Quiz Type is a required field.")
-    private QuizType quizType;
+    @NotBlank(message = "Quiz Type is a required field.")
+    private String quizType;
 
-    @NotNull(message = "Language is a required field.")
-    private Language language;
+    @NotBlank(message = "Language is a required field.")
+    private String language;
 
     @NotNull(message = "Correct Answer Amount is a required field.")
     private Integer correctAnswerAmount;
@@ -45,11 +45,5 @@ public class QuizHistoryDTO {
 
     @NotNull(message = "Worst Time is a required field.")
     private Integer worstTimeInSeconds;
-
-    @NotNull(message = "Learned Phrases is a required field.")
-    private Map<UUID, Integer> learnedPhrases;
-
-    @NotNull(message = "In Progress Phrases is a required field.")
-    private Map<UUID, Integer> inProgressPhrases;
 
 }

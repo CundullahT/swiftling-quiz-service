@@ -42,7 +42,7 @@ public class QuizServiceImpl implements QuizService {
 
         QuizResult quizResultToSave = mapperUtil.convert(quizResultDTO, new QuizResult());
 
-        quizResultToSave.setExternalQuizResultId(quizResultDTO.getExternalQuizResultId());
+        quizResultToSave.setExternalQuizId(quizResultDTO.getExternalQuizId());
         quizResultToSave.setLanguage(Language.findByValue(quizResultDTO.getLanguage()));
         quizResultToSave.setQuizType(QuizType.findByValue(quizResultDTO.getQuizType()));
         quizResultToSave.setDate(LocalDate.now());
