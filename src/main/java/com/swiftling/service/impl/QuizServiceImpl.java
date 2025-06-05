@@ -2,10 +2,7 @@ package com.swiftling.service.impl;
 
 import com.swiftling.client.PhraseClient;
 import com.swiftling.client.UserAccountClient;
-import com.swiftling.dto.PhraseResponseDTO;
-import com.swiftling.dto.QuizHistoryDTO;
-import com.swiftling.dto.QuizResultDTO;
-import com.swiftling.dto.UserAccountResponseDTO;
+import com.swiftling.dto.*;
 import com.swiftling.entity.QuizResult;
 import com.swiftling.enums.Language;
 import com.swiftling.enums.QuizType;
@@ -21,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -63,6 +61,45 @@ public class QuizServiceImpl implements QuizService {
         return quizRepository.findAllByOwnerUserAccountId(getOwnerUserAccountId()).stream()
                 .map(quizResult -> mapperUtil.convert(quizResult, new QuizHistoryDTO()))
                 .toList();
+    }
+
+    @Override
+    public QuizStatsDTO getQuizStats() {
+
+        UUID ownerUserAccountId = getOwnerUserAccountId();
+
+        Optional<QuizResult> optionalQuizResult = quizRepository.findFirstByOwnerUserAccountIdOrderByDateDesc(ownerUserAccountId);
+        QuizStatsDTO quizStatsDTO = new QuizStatsDTO();
+        LatestQuizResultDTO latestQuizResultDTO = new LatestQuizResultDTO();
+
+        if (optionalQuizResult.isEmpty()) {
+
+            quizStatsDTO.setOverallBestTimeInSeconds(-1);
+
+            quizStatsDTO.setLatestBestTimeInSeconds(-1);
+
+            latestQuizResultDTO.setCorrectAnswerAmount(-1);
+            latestQuizResultDTO.setWrongAnswerAmount(-1);
+            latestQuizResultDTO.setTimedOutAnswerAmount(-1);
+
+            quizStatsDTO.setLatestQuizResults(latestQuizResultDTO);
+
+        } else {
+
+            quizStatsDTO.setOverallBestTimeInSeconds(quizRepository.getOverallBestTimeInSeconds());
+
+            quizStatsDTO.setLatestBestTimeInSeconds(optionalQuizResult.get().getBestTimeInSeconds());
+
+            latestQuizResultDTO.setCorrectAnswerAmount(optionalQuizResult.get().getCorrectAnswerAmount());
+            latestQuizResultDTO.setWrongAnswerAmount(optionalQuizResult.get().getWrongAnswerAmount());
+            latestQuizResultDTO.setTimedOutAnswerAmount(optionalQuizResult.get().getTimedOutAnswerAmount());
+
+            quizStatsDTO.setLatestQuizResults(latestQuizResultDTO);
+
+        }
+
+        return quizStatsDTO;
+
     }
 
     private UUID getOwnerUserAccountId() {

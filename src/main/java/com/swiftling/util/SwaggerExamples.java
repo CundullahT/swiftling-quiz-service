@@ -68,7 +68,22 @@ public class SwaggerExamples {
             "    }\n" +
             "  ]\n" +
             "}";
-    
+
+    public static final String QUIZ_STATS_RESPONSE_EXAMPLE = "{\n" +
+            "  \"success\": true,\n" +
+            "  \"statusCode\": \"OK\",\n" +
+            "  \"message\": \"The stats have been retrieved successfully.\",\n" +
+            "  \"data\": {\n" +
+            "    \"overallBestTimeInSeconds\": 3,\n" +
+            "    \"latestBestTimeInSeconds\": 4,\n" +
+            "    \"latestQuizResults\": {\n" +
+            "      \"correctAnswerAmount\": 12,\n" +
+            "      \"wrongAnswerAmount\": 3,\n" +
+            "      \"timedOutAnswerAmount\": 1\n" +
+            "    }\n" +
+            "  }\n" +
+            "}";
+
     public static final String ACCESS_DENIED_FORBIDDEN_RESPONSE_EXAMPLE = "{\n" +
             "  \"success\": false,\n" +
             "  \"message\": \"Access is denied\",\n" +
