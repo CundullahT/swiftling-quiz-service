@@ -28,6 +28,7 @@ The following environment variables must be set for the application to function 
 | `SWIFTLING_QUIZ_DB_USERNAME`   | Database username for the Quiz Service database (set your own username).                                |
 | `SWIFTLING_QUIZ_DB_PASSWORD`   | Database password for the Quiz Service database (set your own password).                                |
 | `SWIFTLING_PROFILE`            | Active Spring profile (e.g., `local`, `dev`, `prod`).                                                   |
+| `ENV`                          | The environment in which the application is running (e.g., `local`, `dev`, `prod`).                     |
 
 ## Running the Application
 1. Clone the repository:
@@ -46,6 +47,7 @@ The following environment variables must be set for the application to function 
    export SWIFTLING_QUIZ_DB_USERNAME=your_database_username
    export SWIFTLING_QUIZ_DB_PASSWORD=your_database_password
    export SWIFTLING_PROFILE=dev
+   export ENV=dev
    ```
    For Windows (Command Prompt):
    ```cmd
@@ -58,6 +60,7 @@ The following environment variables must be set for the application to function 
    set SWIFTLING_QUIZ_DB_PASSWORD=your_database_password
    set SWIFTLING_QUIZ_DB_USERNAME=your_database_username
    set SWIFTLING_PROFILE=dev
+   set ENV=dev
    ```
 3. Build the project using Maven:
    ```sh
