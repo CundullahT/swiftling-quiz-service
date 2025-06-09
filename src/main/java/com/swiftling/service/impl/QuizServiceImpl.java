@@ -13,7 +13,6 @@ import com.swiftling.service.QuizService;
 import com.swiftling.util.MapperUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,14 +29,12 @@ public class QuizServiceImpl implements QuizService {
     private final MapperUtil mapperUtil;
     private final PhraseClient phraseClient;
     private final UserAccountClient userAccountClient;
-    private final KafkaTemplate<String, QuizResultDTO> kafka;
 
-    public QuizServiceImpl(QuizRepository quizRepository, MapperUtil mapperUtil, PhraseClient phraseClient, UserAccountClient userAccountClient, KafkaTemplate<String, QuizResultDTO> kafka) {
+    public QuizServiceImpl(QuizRepository quizRepository, MapperUtil mapperUtil, PhraseClient phraseClient, UserAccountClient userAccountClient) {
         this.quizRepository = quizRepository;
         this.mapperUtil = mapperUtil;
         this.phraseClient = phraseClient;
         this.userAccountClient = userAccountClient;
-        this.kafka = kafka;
     }
 
     @Override
@@ -57,8 +54,6 @@ public class QuizServiceImpl implements QuizService {
         updatePhraseStatuses(quizResultDTO);
 
         QuizResult savedQuizResult = quizRepository.save(quizResultToSave);
-
-        kafka.send("quiz-results", ownerUserAccountId.toString(), quizResultDTO);
 
         return mapperUtil.convert(savedQuizResult, new QuizResultDTO());
 

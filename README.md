@@ -13,7 +13,6 @@ Ensure the following dependencies are installed and configured:
 - **Netflix Eureka Server** (Service Discovery) (Example Eureka Server Repository = https://github.com/CundullahT/swiftling-discovery-service.git)
 - **Spring Cloud Config Server** (Configuration Management) (Example Config Server Repository = https://github.com/CundullahT/swiftling-config-service.git)
 - **Zipkin Server** (Distributed Tracing) **NOTE:** You can find the needed Docker command at the end of this document.
-- **Kafka Broker** (Message Broker) (Kafka Docker Compose Example = https://github.com/CundullahT/swiftling-kafka-docker-compose.git)
 
 ## Environment Variables
 The following environment variables must be set for the application to function properly:
@@ -29,7 +28,6 @@ The following environment variables must be set for the application to function 
 | `SWIFTLING_QUIZ_DB_USERNAME`    | Database username for the Quiz Service database (set your own username).                                |
 | `SWIFTLING_QUIZ_DB_PASSWORD`    | Database password for the Quiz Service database (set your own password).                                |
 | `SWIFTLING_PROFILE`             | Active Spring profile (e.g., `local`, `dev`, `prod`).                                                   |
-| `KAFKA_BOOTSTRAP_SERVERS`       | Comma-separated list of Kafka bootstrap servers (e.g., `localhost:29092`, `broker:19092`).              |
 | `ENV`                           | The environment in which the application is running (e.g., `local`, `dev`, `prod`).                     |
 
 ## Running the Application
@@ -49,7 +47,6 @@ The following environment variables must be set for the application to function 
    export SWIFTLING_QUIZ_DB_USERNAME=your_database_username
    export SWIFTLING_QUIZ_DB_PASSWORD=your_database_password
    export SWIFTLING_PROFILE=dev
-   export KAFKA_BOOTSTRAP_SERVERS=your_kafka_broker_listener_url
    export ENV=dev
    ```
    For Windows (Command Prompt):
@@ -63,7 +60,6 @@ The following environment variables must be set for the application to function 
    set SWIFTLING_QUIZ_DB_PASSWORD=your_database_password
    set SWIFTLING_QUIZ_DB_USERNAME=your_database_username
    set SWIFTLING_PROFILE=dev
-   set KAFKA_BOOTSTRAP_SERVERS=your_kafka_broker_listener_url
    set ENV=dev
    ```
 3. Build the project using Maven:
@@ -91,7 +87,6 @@ The following environment variables must be set for the application to function 
 - Registers itself with Eureka for service discovery.
 - Retrieves configuration properties from Spring Cloud Config Server.
 - Integrates with Zipkin for distributed tracing.
-- Integrates with Kafka for consuming messages.
 
 ## Additional Information
 - This application is built using **Spring Boot 3.4.4**.
@@ -103,8 +98,6 @@ The following environment variables must be set for the application to function 
   ```
 - For an example **Keycloak** setup using Docker Compose, refer to this private repository:
   https://github.com/CundullahT/swiftling-keycloak-docker-compose.git
-- For an example **Kafka** setup using Docker Compose, refer to this private repository:
-  https://github.com/CundullahT/swiftling-kafka-docker-compose.git
 - While the Quiz Service does not directly depend on the API Gateway, starting the Gateway allows accessing this service through it, including using its Swagger documentation. The Gateway may take some time to retrieve and display the Swagger docs from microservices.
 
 ## License
