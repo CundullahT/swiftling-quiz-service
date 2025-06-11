@@ -84,6 +84,16 @@ public class SwaggerExamples {
             "  }\n" +
             "}";
 
+    public static final String DAILY_STREAK_RESPONSE_EXAMPLE = "{\n" +
+            "  \"success\": true,\n" +
+            "  \"statusCode\": \"OK\",\n" +
+            "  \"message\": \"The daily streak has been retrieved successfully.\",\n" +
+            "  \"data\": {\n" +
+            "    \"dailyStreak\": 14,\n" +
+            "    \"updatedToday\": true\n" +
+            "  }\n" +
+            "}";
+
     public static final String ACCESS_DENIED_FORBIDDEN_RESPONSE_EXAMPLE = "{\n" +
             "  \"success\": false,\n" +
             "  \"message\": \"Access is denied\",\n" +

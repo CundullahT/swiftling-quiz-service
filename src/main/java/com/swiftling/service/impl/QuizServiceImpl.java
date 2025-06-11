@@ -184,6 +184,21 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
+    public DailyStreakDTO getDailyStreak() {
+
+        DailyStreak dailyStreak = dailyStreakRepository.findByUserAccountId(getOwnerUserAccountId())
+                .orElseGet(DailyStreak::new);
+
+        DailyStreakDTO dailyStreakDTO = new DailyStreakDTO();
+
+        dailyStreakDTO.setDailyStreak(dailyStreak.getDailyStreak());
+        dailyStreakDTO.setUpdatedToday(dailyStreakDTO.getUpdatedToday());
+
+        return dailyStreakDTO;
+
+    }
+
+    @Override
     public Map<UUID, DailyStreakDTO> getAllUsersDailyStreaks() {
 
         List<Object[]> results = dailyStreakRepository.findAllUserStreaksRaw();

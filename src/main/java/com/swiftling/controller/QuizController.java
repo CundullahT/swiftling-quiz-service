@@ -1,5 +1,6 @@
 package com.swiftling.controller;
 
+import com.swiftling.dto.DailyStreakDTO;
 import com.swiftling.dto.QuizHistoryDTO;
 import com.swiftling.dto.QuizResultDTO;
 import com.swiftling.dto.QuizStatsDTO;
@@ -111,6 +112,31 @@ public class QuizController {
                 .success(true)
                 .message("The stats have been retrieved successfully.")
                 .data(quizStats)
+                .build());
+
+    }
+
+    @GetMapping("/daily-streak")
+    @Operation(summary = "Get the daily streak of the logged in user.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The daily streak has been retrieved successfully.",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseWrapper.class),
+                            examples = @ExampleObject(value = SwaggerExamples.DAILY_STREAK_RESPONSE_EXAMPLE))),
+            @ApiResponse(responseCode = "403", description = "Access is denied",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionWrapper.class),
+                            examples = @ExampleObject(value = SwaggerExamples.ACCESS_DENIED_FORBIDDEN_RESPONSE_EXAMPLE))),
+            @ApiResponse(responseCode = "503", description = "The external ID of the user account could not be retrieved.",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionWrapper.class),
+                            examples = @ExampleObject(value = SwaggerExamples.USER_EXTERNAL_ID_NOT_RETRIEVED_RESPONSE_EXAMPLE)))})
+    public ResponseEntity<ResponseWrapper> getDailyStreak() {
+
+        DailyStreakDTO dailyStreakDTO = quizService.getDailyStreak();
+
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseWrapper.builder()
+                .statusCode(HttpStatus.OK)
+                .success(true)
+                .message("The daily streak has been retrieved successfully.")
+                .data(dailyStreakDTO)
                 .build());
 
     }

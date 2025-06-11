@@ -19,6 +19,8 @@ public interface QuizService {
 
     void handleDailyStreakReset();
 
+    DailyStreakDTO getDailyStreak();
+
     Map<UUID, DailyStreakDTO> getAllUsersDailyStreaks();
 
 }
