@@ -9,6 +9,7 @@ import com.swiftling.enums.Language;
 import com.swiftling.enums.QuizType;
 import com.swiftling.exception.ExternalIdNotRetrievedException;
 import com.swiftling.exception.PhraseStatusesCouldNotBeUpdatedException;
+import com.swiftling.exception.QuizCanNotBeDeletedException;
 import com.swiftling.repository.DailyStreakRepository;
 import com.swiftling.repository.QuizRepository;
 import com.swiftling.service.QuizService;
@@ -219,6 +220,20 @@ public class QuizServiceImpl implements QuizService {
         }
 
         return streakMap;
+
+    }
+
+    @Override
+    public void deleteAllByUser(UUID externalOwnerUserAccountId) {
+
+        try {
+
+            List<QuizResult> allUserPhrases = quizRepository.findAllByOwnerUserAccountId(externalOwnerUserAccountId);
+            quizRepository.deleteAll(allUserPhrases);
+
+        } catch (Throwable exception) {
+            throw new QuizCanNotBeDeletedException("The quizzes can not be deleted.");
+        }
 
     }
 

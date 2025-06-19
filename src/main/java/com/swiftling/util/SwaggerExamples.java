@@ -94,6 +94,20 @@ public class SwaggerExamples {
             "  }\n" +
             "}";
 
+    public static final String USER_NOT_FOUND_RESPONSE_EXAMPLE = "{\n" +
+            "  \"success\": false,\n" +
+            "  \"message\": \"The user does not exist: 550e8400-e29b-41d4-a716-446655440000\",\n" +
+            "  \"httpStatus\": \"NOT_FOUND\",\n" +
+            "  \"localDateTime\": \"2024-01-01T00:00:00.0000000\"\n" +
+            "}";
+
+    public static final String QUIZZES_NOT_DELETED_RESPONSE_EXAMPLE = "{\n" +
+            "  \"success\": false,\n" +
+            "  \"message\": \"The quizzes can not be deleted.\",\n" +
+            "  \"httpStatus\": \"CONFLICT\",\n" +
+            "  \"localDateTime\": \"2024-01-01T00:00:00.0000000\"\n" +
+            "}";
+
     public static final String ACCESS_DENIED_FORBIDDEN_RESPONSE_EXAMPLE = "{\n" +
             "  \"success\": false,\n" +
             "  \"message\": \"Access is denied\",\n" +

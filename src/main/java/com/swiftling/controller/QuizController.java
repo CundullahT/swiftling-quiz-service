@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin("http://localhost:8762")
@@ -137,6 +138,29 @@ public class QuizController {
                 .success(true)
                 .message("The daily streak has been retrieved successfully.")
                 .data(dailyStreakDTO)
+                .build());
+
+    }
+
+    @DeleteMapping("/delete-all-user-quizzes")
+    @Operation(summary = "Delete all existing quizzes belongs to an existing user.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "The quizzes have been deleted successfully."),
+            @ApiResponse(responseCode = "404", description = "The user does not exist: 550e8400-e29b-41d4-a716-446655440000",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionWrapper.class),
+                            examples = @ExampleObject(value = SwaggerExamples.USER_NOT_FOUND_RESPONSE_EXAMPLE))),
+            @ApiResponse(responseCode = "409", description = "The quizzes can not be deleted",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionWrapper.class),
+                            examples = @ExampleObject(value = SwaggerExamples.QUIZZES_NOT_DELETED_RESPONSE_EXAMPLE))),
+            @ApiResponse(responseCode = "403", description = "Access is denied",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionWrapper.class),
+                            examples = @ExampleObject(value = SwaggerExamples.ACCESS_DENIED_FORBIDDEN_RESPONSE_EXAMPLE)))})
+    public ResponseEntity<ResponseWrapper> deleteAllByUser(@RequestParam(value = "external-user-id", required = true) UUID externalOwnerUserAccountId) {
+
+        quizService.deleteAllByUser(externalOwnerUserAccountId);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(ResponseWrapper.builder()
+                .statusCode(HttpStatus.NO_CONTENT)
                 .build());
 
     }

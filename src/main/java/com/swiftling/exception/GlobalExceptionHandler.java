@@ -87,6 +87,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(exceptionWrapper);
     }
 
+    @ExceptionHandler(QuizCanNotBeDeletedException.class)
+    public ResponseEntity<ExceptionWrapper> handleQuizCanNotBeDeletedException(Throwable exception) {
+        log.error(exception.getMessage());
+        exception.printStackTrace();
+        ExceptionWrapper exceptionWrapper = ExceptionWrapper.builder()
+                .success(false)
+                .message(exception.getMessage())
+                .httpStatus(HttpStatus.CONFLICT)
+                .localDateTime(LocalDateTime.now())
+                .build();
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exceptionWrapper);
+    }
+
     @ExceptionHandler({UnknownQuizTypeException.class, UnknownLanguageException.class})
     public ResponseEntity<ExceptionWrapper> handleUnknownValueExceptions(Throwable exception) {
         log.error(exception.getMessage());

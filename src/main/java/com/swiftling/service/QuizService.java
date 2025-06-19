@@ -23,4 +23,6 @@ public interface QuizService {
 
     Map<UUID, DailyStreakDTO> getAllUsersDailyStreaks();
 
+    void deleteAllByUser(UUID externalOwnerUserAccountId);
+
 }
