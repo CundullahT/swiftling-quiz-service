@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin("http://localhost:8762")
+@CrossOrigin({"http://localhost:8762", "http://localhost:5000", "http://swiftling-frontend:5000", "https://swiftlingapp.com"})
 @RequestMapping("/api/v1/quiz")
 public class QuizController {
 
