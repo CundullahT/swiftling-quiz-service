@@ -2,9 +2,7 @@ package com.swiftling.entity;
 
 import com.swiftling.enums.Language;
 import com.swiftling.enums.QuizType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,9 +24,11 @@ public class QuizResult extends BaseEntity {
     private LocalDate date;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private QuizType quizType;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Language language;
 
     @Column(nullable = false)
