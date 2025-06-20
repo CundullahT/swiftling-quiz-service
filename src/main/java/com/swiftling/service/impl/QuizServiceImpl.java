@@ -78,6 +78,7 @@ public class QuizServiceImpl implements QuizService {
                 .map(quizResult -> {
                     QuizHistoryDTO quizHistoryToReturn = mapperUtil.convert(quizResult, new QuizHistoryDTO());
                     quizHistoryToReturn.setLanguage(quizResult.getLanguage().getValue());
+                    quizHistoryToReturn.setQuizType(quizResult.getQuizType().getValue());
                     return quizHistoryToReturn;
                 })
                 .toList();
