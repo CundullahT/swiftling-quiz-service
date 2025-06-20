@@ -21,6 +21,7 @@ public class QuizResultDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID externalQuizId;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate date;
 
     @NotBlank(message = "Quiz Type is a required field.")

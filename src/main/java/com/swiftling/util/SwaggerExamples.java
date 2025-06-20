@@ -5,20 +5,26 @@ public class SwaggerExamples {
     private SwaggerExamples() {}
 
     public static final String QUIZ_RESULT_SAVE_REQUEST_EXAMPLE = "{\n" +
-            "  \"quizType\": \"LEARNED_ONLY\",\n" +
-            "  \"language\": \"CZECH\",\n" +
-            "  \"correctAnswerAmount\": 12,\n" +
+            "  \"quizType\": \"In Progress Only\",\n" +
+            "  \"language\": \"en\",\n" +
+            "  \"correctAnswerAmount\": 15,\n" +
             "  \"wrongAnswerAmount\": 3,\n" +
-            "  \"timedOutAnswerAmount\": 1,\n" +
+            "  \"timedOutAnswerAmount\": 2,\n" +
             "  \"bestTimeInSeconds\": 4,\n" +
-            "  \"worstTimeInSeconds\": 15,\n" +
-            "  \"learnedPhrases\": {\n" +
-            "    \"550e8400-e29b-41d4-a716-446655440000\": 10,\n" +
-            "    \"550e8400-e29b-41d4-a716-446655440001\": 11\n" +
-            "  },\n" +
-            "  \"inProgressPhrases\": {\n" +
-            "    \"550e8400-e29b-41d4-a716-446655440002\": 5,\n" +
-            "    \"550e8400-e29b-41d4-a716-446655440003\": 6\n" +
+            "  \"worstTimeInSeconds\": 12,\n" +
+            "  \"resultForEachPhrase\": {\n" +
+            "    \"f47ac10b-58cc-4372-a567-0e02b2c3d479\": {\n" +
+            "      \"consecutiveCorrectAmount\": 5,\n" +
+            "      \"answeredWrongOrTimedOutAtLeastOnce\": false\n" +
+            "    },\n" +
+            "    \"e0eec5e4-11a3-4d0e-988e-d8fc46c4d9b9\": {\n" +
+            "      \"consecutiveCorrectAmount\": 2,\n" +
+            "      \"answeredWrongOrTimedOutAtLeastOnce\": true\n" +
+            "    },\n" +
+            "    \"9c6f4d1e-3df0-4b0a-96f7-1a60e9876de3\": {\n" +
+            "      \"consecutiveCorrectAmount\": 10,\n" +
+            "      \"answeredWrongOrTimedOutAtLeastOnce\": false\n" +
+            "    }\n" +
             "  }\n" +
             "}";
 
@@ -29,13 +35,13 @@ public class SwaggerExamples {
             "  \"data\": {\n" +
             "    \"externalQuizResultId\": \"550e8400-e29b-41d4-a716-446655440099\",\n" +
             "    \"date\": \"2025-06-05\",\n" +
-            "    \"quizType\": \"LEARNED_ONLY\",\n" +
-            "    \"language\": \"FRENCH\",\n" +
-            "    \"correctAnswerAmount\": 12,\n" +
+            "    \"quizType\": \"In Progress Only\",\n" +
+            "    \"language\": \"English\",\n" +
+            "    \"correctAnswerAmount\": 15,\n" +
             "    \"wrongAnswerAmount\": 3,\n" +
-            "    \"timedOutAnswerAmount\": 1,\n" +
+            "    \"timedOutAnswerAmount\": 2,\n" +
             "    \"bestTimeInSeconds\": 4,\n" +
-            "    \"worstTimeInSeconds\": 15\n" +
+            "    \"worstTimeInSeconds\": 12\n" +
             "  }\n" +
             "}";
 

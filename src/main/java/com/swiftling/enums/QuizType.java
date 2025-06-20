@@ -23,11 +23,11 @@ public enum QuizType {
                     .collect(Collectors.toMap(QuizType::getValue, s -> s));
 
     public static QuizType findByValue(String value) {
-        QuizType status = BY_VALUE.get(value);
-        if (status == null) {
-            throw new UnknownQuizTypeException("Unknown Status: " + value);
+        QuizType quizType = BY_VALUE.get(value);
+        if (quizType == null) {
+            throw new UnknownQuizTypeException("Unknown Quiz Type: " + value);
         }
-        return status;
+        return quizType;
     }
 
 }

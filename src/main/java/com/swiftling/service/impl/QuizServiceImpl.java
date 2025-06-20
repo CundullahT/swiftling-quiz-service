@@ -48,8 +48,8 @@ public class QuizServiceImpl implements QuizService {
 
         QuizResult quizResultToSave = mapperUtil.convert(quizResultDTO, new QuizResult());
 
-        quizResultToSave.setExternalQuizId(quizResultDTO.getExternalQuizId());
-        quizResultToSave.setLanguage(Language.findByValue(quizResultDTO.getLanguage()));
+        quizResultToSave.setExternalQuizId(UUID.randomUUID());
+        quizResultToSave.setLanguage(Language.findByCode(quizResultDTO.getLanguage().toLowerCase()));
         quizResultToSave.setQuizType(QuizType.findByValue(quizResultDTO.getQuizType()));
         quizResultToSave.setDate(LocalDate.now());
 
@@ -57,20 +57,29 @@ public class QuizServiceImpl implements QuizService {
 
         quizResultToSave.setOwnerUserAccountId(ownerUserAccountId);
 
-        updatePhraseStatuses(quizResultDTO);
-
         QuizResult savedQuizResult = quizRepository.save(quizResultToSave);
 
         updateDailyStreakAfterQuiz(ownerUserAccountId);
 
-        return mapperUtil.convert(savedQuizResult, new QuizResultDTO());
+        updatePhraseStatuses(quizResultDTO);
+
+        QuizResultDTO quizResultToReturn = mapperUtil.convert(savedQuizResult, new QuizResultDTO());
+
+        quizResultToReturn.setLanguage(savedQuizResult.getLanguage().getValue());
+        quizResultToReturn.setQuizType(savedQuizResult.getQuizType().getValue());
+
+        return quizResultToReturn;
 
     }
 
     @Override
     public List<QuizHistoryDTO> getQuizHistory() {
         return quizRepository.findAllByOwnerUserAccountId(getOwnerUserAccountId()).stream()
-                .map(quizResult -> mapperUtil.convert(quizResult, new QuizHistoryDTO()))
+                .map(quizResult -> {
+                    QuizHistoryDTO quizHistoryToReturn = mapperUtil.convert(quizResult, new QuizHistoryDTO());
+                    quizHistoryToReturn.setLanguage(quizResult.getLanguage().getValue());
+                    return quizHistoryToReturn;
+                })
                 .toList();
     }
 
@@ -158,12 +167,21 @@ public class QuizServiceImpl implements QuizService {
     private void updateDailyStreakAfterQuiz(UUID ownerUserAccountId) {
 
         DailyStreak dailyStreak = dailyStreakRepository.findByUserAccountId(ownerUserAccountId)
-                .orElseGet(DailyStreak::new);
+                .orElseGet(() -> {
+                    DailyStreak newDailyStreak = new DailyStreak();
+                    newDailyStreak.setUserAccountId(ownerUserAccountId);
+                    newDailyStreak.setUpdatedToday(false);
+                    return newDailyStreak;
+                });
 
-        dailyStreak.setDailyStreak(dailyStreak.getDailyStreak() + 1);
-        dailyStreak.setUpdatedToday(true);
+        if (dailyStreak.getUpdatedToday() == false) {
 
-        dailyStreakRepository.save(dailyStreak);
+            dailyStreak.setDailyStreak(dailyStreak.getDailyStreak() == null ? 1 : dailyStreak.getDailyStreak() + 1);
+            dailyStreak.setUpdatedToday(true);
+
+            dailyStreakRepository.save(dailyStreak);
+
+        }
 
     }
 
